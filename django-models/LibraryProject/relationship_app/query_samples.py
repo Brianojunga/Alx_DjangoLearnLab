@@ -4,11 +4,11 @@ from .models import Author, Book, Library, Librarian
 #Query all books by a specific author
 
 # Option 1: Using Author instance
-author = Author.objects.get(name="J.K. Rowling")
+author = Author.objects.get(name="author_name")
 books_by_author = author.books.all()  # thanks to related_name='books'
 
 # Option 2: Using Book filter directly
-books_by_author = Book.objects.filter(author__name="J.K. Rowling")
+books_by_author = Book.objects.filter(name="author_name")
 
 # Print results
 for book in books_by_author:
@@ -16,7 +16,7 @@ for book in books_by_author:
 
 
 #List all books in a library
-library = Library.objects.get(name="Central Library")
+library = Library.objects.get(name="library_name")
 books_in_library = library.books.all()  # ManyToManyField reverse
 
 for book in books_in_library:
