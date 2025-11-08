@@ -8,7 +8,7 @@ author = Author.objects.get(name=author_name)
 books_by_author = author.books.all()  # thanks to related_name='books'
 
 # Option 2: Using Book filter directly
-books_by_author = Book.objects.filter(name="author_name")
+books_by_author = Book.objects.filter(author=author)
 
 # Print results
 for book in books_by_author:
