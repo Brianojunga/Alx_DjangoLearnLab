@@ -16,7 +16,7 @@ for book in books_by_author:
 
 
 #List all books in a library
-library = Library.objects.get(name="library_name")
+library = Library.objects.get(name=library_name)
 books_in_library = library.books.all()  # ManyToManyField reverse
 
 for book in books_in_library:
