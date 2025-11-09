@@ -49,7 +49,7 @@ def login_view(request):
 
 
  # User logout view
-def logout_view(request):
-    logout(request)
-    messages.info(request, "You have successfully logged out.")
-    return render(request, 'relationship_app/logout.html')
+# def logout_view(request):
+#     logout(request)
+#     messages.info(request, "You have successfully logged out.")
+#     return render(request, 'relationship_app/logout.html')
