@@ -124,3 +124,35 @@ STATIC_URL = 'static/'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 AUTH_USER_MODEL = 'bookshelf.CustomUser'
+
+# settings.py
+
+# 1. Disable debug in production
+#DEBUG = False
+
+# 2. Secure browser-side protections
+SECURE_BROWSER_XSS_FILTER = True       # Enables XSS filter in browsers
+X_FRAME_OPTIONS = 'DENY'               # Prevent clickjacking
+SECURE_CONTENT_TYPE_NOSNIFF = True     # Prevent MIME-type sniffing
+
+# 3. Enforce HTTPS for cookies
+CSRF_COOKIE_SECURE = True
+SESSION_COOKIE_SECURE = True
+
+# 4. HSTS (HTTP Strict Transport Security)
+SECURE_HSTS_SECONDS = 31536000         # 1 year
+SECURE_HSTS_INCLUDE_SUBDOMAINS = True
+SECURE_HSTS_PRELOAD = True
+
+# 5. SSL redirect (forces HTTPS)
+SECURE_SSL_REDIRECT = True
+
+# 6. Content Security Policy (CSP) setup using django-csp
+INSTALLED_APPS += ['csp']  # Add CSP middleware app
+MIDDLEWARE += ['csp.middleware.CSPMiddleware']
+
+# Example CSP rules:
+CSP_DEFAULT_SRC = ("'self'",)
+CSP_SCRIPT_SRC = ("'self'", "https://trustedscripts.example.com")
+CSP_STYLE_SRC = ("'self'", "https://trustedstyles.example.com")
+
