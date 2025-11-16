@@ -2,7 +2,7 @@ from django.contrib import admin
 from .models import Book
 from django.contrib.auth.admin import UserAdmin
 from django import forms
-
+from django.contrib.auth.models import Group, Permission
 from .models import CustomUser  # your custom user model
 
 # Register your models here.
@@ -65,5 +65,24 @@ class CustomUserAdmin(UserAdmin):
 
     search_fields = ("email", "username")
     ordering = ("email",)
+
+
+def create_groups():
+    permissions = {
+        "viewers": ["can_view"],
+        "editors": ["can_view", "can_create", "can_edit"],
+        "admins": ["can_view", "can_create", "can_edit", "can_delete"],
+    }
+
+    for group_name, perms in permissions.items():
+        group, created = Group.objects.get_or_create(name=group_name.capitalize())
+
+        for perm in perms:
+            permission = Permission.objects.get(codename=perm)
+            group.permissions.add(permission)
+
+    print("Groups and permissions created successfully!")
+
+
 
 admin.site.register(CustomUser, CustomUserAdmin)
