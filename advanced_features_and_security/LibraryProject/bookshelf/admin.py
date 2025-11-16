@@ -29,7 +29,7 @@ class CustomUserCreationForm(forms.ModelForm):
         fields = ('email',)
 
 
-@admin.register(CustomUser)
+
 class CustomUserAdmin(UserAdmin):
     add_form = CustomUserCreationForm
     form = CustomUserChangeForm
@@ -65,3 +65,5 @@ class CustomUserAdmin(UserAdmin):
 
     search_fields = ("email", "username")
     ordering = ("email",)
+
+admin.site.register(CustomUser, CustomUserAdmin)
