@@ -4,8 +4,6 @@ from .models import Book
 
 # Create your views here.
 
-
-
 # VIEW LIST
 @permission_required('yourapp.can_view', raise_exception=True)
 def article_list(request):
@@ -28,16 +26,16 @@ def create_article(request):
 
 # EDIT
 @permission_required('yourapp.can_edit', raise_exception=True)
-def edit_article(request, article_id):
-    books = get_object_or_404(Book, id=article_id)
+def edit_article(request, book_id):
+    books = get_object_or_404(Book, id=book_id)
 
     if request.method == "POST":
         Book.title = request.POST.get("title")
         Book.content = request.POST.get("content")
         Book.save()
-        return redirect("article_list")
+        return redirect("book_list")
 
-    return render(request, "articles/edit.html", {"article": books})
+    return render(request, "articles/edit.html", {"book": books})
 
 
 # DELETE
@@ -45,4 +43,4 @@ def edit_article(request, article_id):
 def delete_article(request, book_id):
     book = get_object_or_404(Book, id=book_id)
     book.delete()
-    return redirect("article_list")
+    return redirect("book_list")
