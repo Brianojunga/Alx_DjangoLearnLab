@@ -3,3 +3,13 @@ GET http://127.0.0.1:8000/api/books/  HTTP/1.1
 ###
 
 GET http://127.0.0.1:8000/api/books_all/  HTTP/1.1
+Authorization: Token ddee11c9ee0238d941059f5e72913f814f342cdc
+
+###
+POST http://127.0.0.1:8000/auth/ HTTP/1.1
+Content-Type: application/json
+
+{
+    "username" : "ojoules",
+    "password" : "@Myhouse12"
+}
