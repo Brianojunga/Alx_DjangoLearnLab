@@ -15,6 +15,7 @@ class BookListView(generics.ListAPIView):
     permission_classes = [IsAuthenticated, IsAuthenticatedOrReadOnly]
     filter_backends = [rest_framework.DjangoFilterBackend]
     filterset_class = BookFilter
+    search_fields = ['title', 'author']
 
 class BookDetailView(generics.RetrieveAPIView):
     queryset = Book.objects.all()
@@ -25,6 +26,7 @@ class BookDetailView(generics.RetrieveAPIView):
 class BookCreateView(generics.CreateAPIView):
     queryset = Book.objects.all()
     serializer_class = BookSerializer
+    filter_backends = [filters.SearchFilter]
 
 class BookUpdateView(generics.UpdateAPIView):
     queryset = Book.objects.all()
