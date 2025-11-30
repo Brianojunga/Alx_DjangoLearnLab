@@ -6,7 +6,7 @@ from .models import Book, Author
 class AuthorSerializer(serializers.ModelSerializer):
     class Meta:
         model = Author
-        field = ['id', 'name']
+        fields = ['id', 'name']
 
 class BookSerializer(serializers.ModelSerializer):
     author = AuthorSerializer(many=True, read_only=True)
