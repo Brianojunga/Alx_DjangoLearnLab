@@ -1,6 +1,8 @@
 # blog/models.py
 from django.db import models
 from django.contrib.auth.models import User
+from taggit.managers import TaggableManager
+from taggit.models import Tag
 
 class Post(models.Model):
     title = models.CharField(max_length=200)
@@ -11,6 +13,7 @@ class Post(models.Model):
         on_delete=models.CASCADE,  # Deletes posts if the user is deleted
         related_name='posts'       # Allows reverse access: user.posts.all()
     )
+    tags = TaggableManager() 
 
     def __str__(self):
         return self.title
@@ -21,6 +24,7 @@ class Comment(models.Model):
     content = models.TextField()
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
+    
 
     def __str__(self):
         return f'Comment by {self.author.username} on {self.post.title}'
