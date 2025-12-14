@@ -10,7 +10,7 @@ class CustomUserSerializer(serializers.ModelSerializer):
         many=True,
         read_only=True
     )
-    #follow = serializers.CharField(write_only=True, required=False)
+    #follow = serializers.CharField()
     class Meta:
         model = CustomUser
         fields = [ 'username', 'email', 'bio', 'profile_picture', 'followers']
