@@ -1,4 +1,4 @@
-from rest_framework import viewsets, filters
+from rest_framework import viewsets, filters, permissions
 from rest_framework.permissions import IsAuthenticated
 from .models import Post, Comment
 from .serializers import PostSerializer, CommentSerializer
@@ -29,11 +29,10 @@ class CommentViewSet(viewsets.ModelViewSet):
 
 
 class FeedView(APIView):
-    permission_classes = [IsAuthenticated]
+    permission_classes = [permissions.IsAuthenticated]
 
     def get(self, request):
-        user = request.user
-        following_users = user.following.all()
+        following_users = request.user.following.all()
 
         posts = Post.objects.filter(
             author__in=following_users
