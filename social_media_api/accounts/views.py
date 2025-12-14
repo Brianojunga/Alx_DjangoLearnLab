@@ -6,6 +6,7 @@ from rest_framework.permissions import IsAuthenticated
 from django.contrib.auth import authenticate
 from rest_framework.views import APIView
 from rest_framework.response import Response
+from rest_framework.decorators import action
 
 # Create your views here.
 class CustomUserViewset(viewsets.ModelViewSet):
@@ -13,8 +14,25 @@ class CustomUserViewset(viewsets.ModelViewSet):
     serializer_class = CustomUserSerializer
     permission_classes = [IsAuthenticated]
 
-    def get_queryset(self):
-        return CustomUser.objects.filter(id=self.request.user.id)
+    @action(detail=True, methods=['post'])
+    def follow(self, request, pk=None):
+        user_to_follow = self.get_object()
+        user = request.user
+
+        if user == user_to_follow:
+            return Response({'error': 'You cannot follow yourself'}, status=400)
+
+        user.following.add(user_to_follow)
+        return Response({'message': f'You are now following {user_to_follow.username}'})
+
+    @action(detail=True, methods=['post'])
+    def unfollow(self, request, pk=None):
+        user_to_unfollow = self.get_object()
+        user = request.user
+
+        user.following.remove(user_to_unfollow)
+        return Response({'message': f'You unfollowed {user_to_unfollow.username}'})
+    
 
 
 class RegisterViewset(viewsets.ModelViewSet):
