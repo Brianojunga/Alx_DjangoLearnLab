@@ -93,3 +93,5 @@ class UnlikePostView(APIView):
 
         like.delete()
         return Response({'detail': 'Post unliked'})
+
+# "generics.get_object_or_404(Post, pk=pk)", "Like.objects.get_or_create(user=request.user, post=post)
